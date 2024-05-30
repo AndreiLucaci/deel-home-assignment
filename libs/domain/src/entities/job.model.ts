@@ -3,6 +3,7 @@ import {
   BelongsTo,
   Column,
   DataType,
+  Default,
   ForeignKey,
   Model,
   Table,
@@ -23,7 +24,7 @@ export class Job extends Model {
   })
   price: number;
 
-  @AllowNull(false)
+  @Default(false)
   @Column({
     type: DataType.BOOLEAN,
   })
