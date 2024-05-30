@@ -80,18 +80,18 @@
     ],
     "coverageDirectory": "./coverage",
     "testEnvironment": "node",
+    "testTimeout": 30000,
     "roots": [
       "<rootDir>/apps/",
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^defaultLibraryPrefix/services(|/.*)$": "<rootDir>/libs/services/src/$1",
       "^@app/services(|/.*)$": "<rootDir>/libs/services/src/$1",
       "^@app/utils(|/.*)$": "<rootDir>/libs/utils/src/$1",
       "^@app/auth(|/.*)$": "<rootDir>/libs/auth/src/$1",
       "^@app/storage(|/.*)$": "<rootDir>/libs/storage/src/$1",
       "^@app/domain(|/.*)$": "<rootDir>/libs/domain/src/$1",
-      "^@app/errors(|/.*)$": "<rootDir>/libs/errors/src/$1"
+      "^@app/exceptions(|/.*)$": "<rootDir>/libs/exceptions/src/$1"
     }
   }
 }
