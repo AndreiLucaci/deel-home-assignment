@@ -1,0 +1,249 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "harry@potter.com",
+      "password": "$2b$16$bVimTUde1Ln7GXgkvnRytuQLZa2M07/4rPZEDWseVzUvbqV89t.Se",
+      "firstName": "Harry",
+      "lastName": "Potter",
+      "profession": "Wizard",
+      "balance": 1150,
+      "type": "client"
+    },
+    {
+      "id": 2,
+      "email": "mr@robot.com",
+      "password": "$2b$16$bVimTUde1Ln7GXgkvnRytuQLZa2M07/4rPZEDWseVzUvbqV89t.Se",
+      "firstName": "Mr",
+      "lastName": "Robot",
+      "profession": "Hacker",
+      "balance": 231.11,
+      "type": "client"
+    },
+    {
+      "id": 3,
+      "email": "john@snow.com",
+      "password": "$2b$16$bVimTUde1Ln7GXgkvnRytuQLZa2M07/4rPZEDWseVzUvbqV89t.Se",
+      "firstName": "John",
+      "lastName": "Snow",
+      "profession": "Knows nothing",
+      "balance": 451.3,
+      "type": "client"
+    },
+    {
+      "id": 4,
+      "email": "ash@kethcum.com",
+      "password": "$2b$16$bVimTUde1Ln7GXgkvnRytuQLZa2M07/4rPZEDWseVzUvbqV89t.Se",
+      "firstName": "Ash",
+      "lastName": "Kethcum",
+      "profession": "Pokemon master",
+      "balance": 1.3,
+      "type": "client"
+    },
+    {
+      "id": 5,
+      "email": "john@lenon.com",
+      "password": "$2b$16$bVimTUde1Ln7GXgkvnRytuQLZa2M07/4rPZEDWseVzUvbqV89t.Se",
+      "firstName": "John",
+      "lastName": "Lenon",
+      "profession": "Musician",
+      "balance": 64,
+      "type": "contractor"
+    },
+    {
+      "id": 6,
+      "email": "linus@torvalds.com",
+      "password": "$2b$16$bVimTUde1Ln7GXgkvnRytuQLZa2M07/4rPZEDWseVzUvbqV89t.Se",
+      "firstName": "Linus",
+      "lastName": "Torvalds",
+      "profession": "Programmer",
+      "balance": 1214,
+      "type": "contractor"
+    },
+    {
+      "id": 7,
+      "email": "alan@turing.com",
+      "password": "$2b$16$bVimTUde1Ln7GXgkvnRytuQLZa2M07/4rPZEDWseVzUvbqV89t.Se",
+      "firstName": "Alan",
+      "lastName": "Turing",
+      "profession": "Programmer",
+      "balance": 22,
+      "type": "contractor"
+    },
+    {
+      "id": 8,
+      "email": "aragorn@ilelessartelcontarvalds.com",
+      "password": "$2b$16$bVimTUde1Ln7GXgkvnRytuQLZa2M07/4rPZEDWseVzUvbqV89t.Se",
+      "firstName": "Aragorn",
+      "lastName": "II Elessar Telcontarvalds",
+      "profession": "Fighter",
+      "balance": 314,
+      "type": "contractor"
+    }
+  ],
+  "contracts": [
+    {
+      "id": 1,
+      "terms": "bla bla bla",
+      "status": "terminated",
+      "contractorId": 5,
+      "clientId": 1
+    },
+    {
+      "id": 2,
+      "terms": "bla bla bla",
+      "status": "in_progress",
+      "contractorId": 6,
+      "clientId": 1
+    },
+    {
+      "id": 3,
+      "terms": "bla bla bla",
+      "status": "in_progress",
+      "contractorId": 6,
+      "clientId": 2
+    },
+    {
+      "id": 4,
+      "terms": "bla bla bla",
+      "status": "in_progress",
+      "contractorId": 7,
+      "clientId": 2
+    },
+    {
+      "id": 5,
+      "terms": "bla bla bla",
+      "status": "new",
+      "contractorId": 8,
+      "clientId": 3
+    },
+    {
+      "id": 6,
+      "terms": "bla bla bla",
+      "status": "in_progress",
+      "contractorId": 7,
+      "clientId": 3
+    },
+    {
+      "id": 7,
+      "terms": "bla bla bla",
+      "status": "in_progress",
+      "contractorId": 7,
+      "clientId": 4
+    },
+    {
+      "id": 8,
+      "terms": "bla bla bla",
+      "status": "in_progress",
+      "contractorId": 6,
+      "clientId": 4
+    },
+    {
+      "id": 9,
+      "terms": "bla bla bla",
+      "status": "in_progress",
+      "contractorId": 8,
+      "clientId": 4
+    }
+  ],
+  "jobs": [
+    {
+      "description": "work",
+      "price": 200,
+      "paid": null,
+      "paymentDate": null,
+      "contractId": 1
+    },
+    {
+      "description": "work",
+      "price": 201,
+      "paid": null,
+      "paymentDate": null,
+      "contractId": 2
+    },
+    {
+      "description": "work",
+      "price": 202,
+      "paid": null,
+      "paymentDate": null,
+      "contractId": 3
+    },
+    {
+      "description": "work",
+      "price": 200,
+      "paid": null,
+      "paymentDate": null,
+      "contractId": 4
+    },
+    {
+      "description": "work",
+      "price": 200,
+      "paid": null,
+      "paymentDate": null,
+      "contractId": 7
+    },
+    {
+      "description": "work",
+      "price": 2020,
+      "paid": 1,
+      "paymentDate": "2020-08-15 19:11:26.737 +00:00",
+      "contractId": 7
+    },
+    {
+      "description": "work",
+      "price": 200,
+      "paid": 1,
+      "paymentDate": "2020-08-15 19:11:26.737 +00:00",
+      "contractId": 2
+    },
+    {
+      "description": "work",
+      "price": 200,
+      "paid": 1,
+      "paymentDate": "2020-08-16 19:11:26.737 +00:00",
+      "contractId": 3
+    },
+    {
+      "description": "work",
+      "price": 200,
+      "paid": 1,
+      "paymentDate": "2020-08-17 19:11:26.737 +00:00",
+      "contractId": 1
+    },
+    {
+      "description": "work",
+      "price": 200,
+      "paid": 1,
+      "paymentDate": "2020-08-17 19:11:26.737 +00:00",
+      "contractId": 5
+    },
+    {
+      "description": "work",
+      "price": 21,
+      "paid": 1,
+      "paymentDate": "2020-08-10 19:11:26.737 +00:00",
+      "contractId": 1
+    },
+    {
+      "description": "work",
+      "price": 21,
+      "paid": 1,
+      "paymentDate": "2020-08-15 19:11:26.737 +00:00",
+      "contractId": 2
+    },
+    {
+      "description": "work",
+      "price": 121,
+      "paid": 1,
+      "paymentDate": "2020-08-15 19:11:26.737 +00:00",
+      "contractId": 3
+    },
+    {
+      "description": "work",
+      "price": 121,
+      "paid": 1,
+      "paymentDate": "2020-08-14 23:11:26.737 +00:00",
+      "contractId": 3
+    }
+  ]
+}

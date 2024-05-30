@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { TokenService } from './token.service';
 import { UserService } from '@app/storage/user.service';
 import { CryptoService } from '@app/utils/crypto/crypto.service';
+import { ProfileService } from '@app/storage/profile.service';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -20,6 +21,10 @@ describe('AuthService', () => {
         },
         {
           provide: CryptoService,
+          useValue: jest.fn(),
+        },
+        {
+          provide: ProfileService,
           useValue: jest.fn(),
         },
         AuthService,

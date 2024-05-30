@@ -10,6 +10,7 @@ import {
 import { UserService } from '@app/storage/user.service';
 import { User } from '@app/domain';
 import { TokenService } from './token.service';
+import { ProfileService } from '@app/storage/profile.service';
 
 @Injectable()
 export class AuthService {
@@ -17,6 +18,7 @@ export class AuthService {
     private readonly cryptoService: CryptoService,
     private readonly userService: UserService,
     private readonly tokenService: TokenService,
+    private readonly profileService: ProfileService,
   ) {}
 
   public async createUser(
@@ -30,6 +32,12 @@ export class AuthService {
       ...createUserRequest,
       password: hashedPassword,
     });
+
+    const profile = await this.profileService.createProfile(
+      createUserRequest,
+      user.id,
+    );
+    user.profile = profile;
 
     return {
       id: user.id,

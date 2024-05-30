@@ -14,8 +14,13 @@ export class UserService {
       throw new UserAlreadyExistsException();
     }
 
+    const composedName = `${request.firstName} ${request.lastName}`.trim();
+
     return this.userModel.create({
-      ...request,
+      email: request.email,
+      name: composedName,
+      // this is the hashed password
+      password: request.password,
       // make sure this is the last field
       id: uuid(),
     });

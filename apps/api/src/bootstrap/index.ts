@@ -5,11 +5,11 @@ import { AppConstants } from '@app/utils';
 import helmet from 'helmet';
 // import * as csurf from 'csurf';
 import { AllExceptionsFilter } from '../filters/global.filter';
-import { SequelizeSeeder } from './db';
+// import { SequelizeSeeder } from './db';
 
 export const bootstrap = async () => {
-  const dbSeeder = new SequelizeSeeder();
-  await dbSeeder.ensureSeed();
+  // const dbSeeder = new SequelizeSeeder();
+  // await dbSeeder.ensureSeed();
 
   const app = await NestFactory.create(ApiModule);
 

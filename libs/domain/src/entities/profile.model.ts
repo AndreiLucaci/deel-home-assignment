@@ -1,10 +1,13 @@
 import {
   AllowNull,
+  BelongsTo,
   Column,
   DataType,
+  ForeignKey,
   Model,
   Table,
 } from 'sequelize-typescript';
+import { User } from './user.model';
 
 export enum ProfileType {
   CLIENT = 'client',
@@ -29,4 +32,11 @@ export class Profile extends Model {
     type: DataType.ENUM(...Object.values(ProfileType)),
   })
   type: ProfileType;
+
+  @ForeignKey(() => User)
+  @Column
+  userId: string;
+
+  @BelongsTo(() => User)
+  user: User;
 }
