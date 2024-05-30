@@ -1,10 +1,33 @@
 import { Module } from '@nestjs/common';
-import { ApiController } from './api.controller';
 import { ApiService } from './api.service';
+import { SequelizeModule } from '@nestjs/sequelize';
+import { SequelizeConfig } from '@app/utils/constants/sequelize';
+import { KnownEntityModels } from '@app/domain';
+import { AuthModule } from '@app/auth';
+import { UtilsModule } from '@app/utils/utils.module';
+import { ServicesModule } from '@app/services';
+import { StorageModule } from '@app/storage';
+import { AuthController } from './controllers/auth/auth.controller';
 
 @Module({
-  imports: [],
-  controllers: [ApiController],
+  imports: [
+    SequelizeModule.forRoot({
+      ...SequelizeConfig,
+      autoLoadModels: true,
+      models: [...KnownEntityModels],
+    }),
+    // for now don't use ThrottlerModule, but this could be added later for rate limiting
+    // ThrottlerModule.forRoot([
+    //   ThrottleConfig.short,
+    //   ThrottleConfig.medium,
+    //   ThrottleConfig.long,
+    // ]),
+    UtilsModule,
+    StorageModule,
+    AuthModule,
+    ServicesModule,
+  ],
+  controllers: [AuthController],
   providers: [ApiService],
 })
 export class ApiModule {}

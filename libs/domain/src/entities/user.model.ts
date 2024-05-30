@@ -1,7 +1,11 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import { Column, Model, PrimaryKey, Table } from 'sequelize-typescript';
 
 @Table
 export class User extends Model {
+  @PrimaryKey
+  @Column
+  id: string;
+
   @Column
   name: string;
 
