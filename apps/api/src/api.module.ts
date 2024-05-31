@@ -10,6 +10,9 @@ import { StorageModule } from '@app/storage';
 import { AuthController } from './controllers/auth/auth.controller';
 import { AdminController } from './controllers/admin/admin.controller';
 import { AdminModule } from '@app/admin';
+import { ContractsController } from './controllers/contracts/contracts.controller';
+import { CqrsModule } from '@nestjs/cqrs';
+import { ApplicationModule } from '@app/application';
 
 @Module({
   imports: [
@@ -24,13 +27,15 @@ import { AdminModule } from '@app/admin';
     //   ThrottleConfig.medium,
     //   ThrottleConfig.long,
     // ]),
+    CqrsModule,
     UtilsModule,
     StorageModule,
     AuthModule,
     ServicesModule,
     AdminModule,
+    ApplicationModule,
   ],
-  controllers: [AuthController, AdminController],
+  controllers: [AuthController, AdminController, ContractsController],
   providers: [ApiService],
 })
 export class ApiModule {}

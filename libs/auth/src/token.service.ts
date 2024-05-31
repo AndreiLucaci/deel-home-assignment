@@ -14,6 +14,7 @@ export class TokenService {
         name: user.name,
         email: user.email,
         role: user.role,
+        profileId: user.profile?.id,
         // if any?
         ...claims.map((x) => ({ [x]: true })),
       },

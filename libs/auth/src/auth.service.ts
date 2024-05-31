@@ -7,18 +7,18 @@ import {
   UserLoginRequest,
   UserLoginResponse,
 } from '@app/domain/typings/user.types';
-import { UserService } from '@app/storage/user.service';
 import { Roles, User } from '@app/domain';
 import { TokenService } from './token.service';
-import { ProfileService } from '@app/storage/profile.service';
+import { UserRepository } from '@app/storage/repositories/user.repository';
+import { ProfileRepository } from '@app/storage/repositories/profile.repository';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly cryptoService: CryptoService,
-    private readonly userService: UserService,
     private readonly tokenService: TokenService,
-    private readonly profileService: ProfileService,
+    private readonly userRepository: UserRepository,
+    private readonly profileRepository: ProfileRepository,
   ) {}
 
   public async createUser(
@@ -36,7 +36,7 @@ export class AuthService {
   public async login(
     loginRequest: UserLoginRequest,
   ): Promise<UserLoginResponse> {
-    const user = await this.userService.findUserByEmail(loginRequest.email);
+    const user = await this.userRepository.findUserByEmail(loginRequest.email);
 
     if (!user) {
       throw new UnauthorizedException();
@@ -64,13 +64,13 @@ export class AuthService {
       createUserRequest.password,
     );
 
-    const user = await this.userService.createUser({
+    const user = await this.userRepository.createUser({
       ...createUserRequest,
       password: hashedPassword,
       role,
     });
 
-    const profile = await this.profileService.createProfile(
+    const profile = await this.profileRepository.createProfile(
       createUserRequest,
       user.id,
     );

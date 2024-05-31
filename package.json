@@ -22,6 +22,7 @@
   "dependencies": {
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
+    "@nestjs/cqrs": "^10.2.7",
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/sequelize": "^10.0.1",
@@ -93,7 +94,8 @@
       "^@app/storage(|/.*)$": "<rootDir>/libs/storage/src/$1",
       "^@app/domain(|/.*)$": "<rootDir>/libs/domain/src/$1",
       "^@app/exceptions(|/.*)$": "<rootDir>/libs/exceptions/src/$1",
-      "^@app/admin(|/.*)$": "<rootDir>/libs/admin/src/$1"
+      "^@app/admin(|/.*)$": "<rootDir>/libs/admin/src/$1",
+      "^@app/application(|/.*)$": "<rootDir>/libs/application/src/$1"
     }
   }
 }

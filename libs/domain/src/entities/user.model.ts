@@ -27,7 +27,11 @@ export class User extends BaseModel {
   @Column
   password: string;
 
-  @HasOne(() => Profile)
+  @HasOne(() => Profile, {
+    sourceKey: 'id',
+    foreignKey: 'userId',
+    keyType: DataType.UUIDV4,
+  })
   profile: Profile;
 
   @AllowNull(false)

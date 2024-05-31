@@ -1,4 +1,5 @@
 import { Roles, User } from '@app/domain';
+import { Profile } from '@app/domain/entities/profile.model';
 import { UserCreateRequest } from '@app/domain/typings/user.types';
 import { UserAlreadyExistsException } from '@app/exceptions/auth.exception';
 import { anonymizeEmail, anonymizeName } from '@app/utils';
@@ -7,7 +8,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { v4 as uuid } from 'uuid';
 
 @Injectable()
-export class UserService {
+export class UserRepository {
   constructor(@InjectModel(User) private userModel: typeof User) {}
 
   public async createUser(request: UserCreateRequest) {
@@ -29,7 +30,7 @@ export class UserService {
   }
 
   public async findUserByEmail(email: string) {
-    return this.userModel.findOne({ where: { email } });
+    return this.userModel.findOne({ where: { email }, include: [Profile] });
   }
 
   public async softDeleteUser(userId: string, adminId: string) {
