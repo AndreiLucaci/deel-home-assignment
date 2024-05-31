@@ -109,15 +109,8 @@ export class DeelSeeder {
         },
       },
     });
-    const existingUsers = await this.userModel.findAll({
-      where: {
-        role: {
-          [Op.not]: Roles.ADMIN,
-        },
-      },
-    });
 
-    const result = await this.userModel.destroy({
+    await this.userModel.destroy({
       where: {
         [Op.not]: {
           role: Roles.ADMIN,
@@ -125,9 +118,6 @@ export class DeelSeeder {
       },
     });
 
-    this.#logger.debug(
-      `Cleared ${result} users out of ${existingUsers.length}`,
-    );
     this.#logger.debug('Cleared all tables');
   }
 }
