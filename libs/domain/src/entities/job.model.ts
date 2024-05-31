@@ -5,13 +5,13 @@ import {
   DataType,
   Default,
   ForeignKey,
-  Model,
   Table,
 } from 'sequelize-typescript';
 import { Contract } from './contract.model';
+import { BaseModel } from './base.model';
 
 @Table
-export class Job extends Model {
+export class Job extends BaseModel {
   @AllowNull(false)
   @Column({
     type: DataType.TEXT,

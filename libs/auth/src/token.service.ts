@@ -13,6 +13,7 @@ export class TokenService {
         id: user.id,
         name: user.name,
         email: user.email,
+        role: user.role,
         // if any?
         ...claims.map((x) => ({ [x]: true })),
       },

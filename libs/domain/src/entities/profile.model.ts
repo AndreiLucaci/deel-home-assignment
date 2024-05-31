@@ -4,9 +4,9 @@ import {
   Column,
   DataType,
   ForeignKey,
-  Model,
   Table,
 } from 'sequelize-typescript';
+import { BaseModel } from './base.model';
 import { User } from './user.model';
 
 export enum ProfileType {
@@ -16,7 +16,7 @@ export enum ProfileType {
 }
 
 @Table
-export class Profile extends Model {
+export class Profile extends BaseModel {
   @AllowNull(false)
   @Column
   firstName: string;
@@ -40,4 +40,7 @@ export class Profile extends Model {
 
   @BelongsTo(() => User)
   user: User;
+
+  @Column
+  deletedBy: string;
 }

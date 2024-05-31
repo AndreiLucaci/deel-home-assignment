@@ -1,7 +1,8 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "347a20c7-4433-4994-bd93-cb18d4dfeb75",
+      "profileId": "de93f55c-4aae-4318-8199-85972c491fb3",
       "email": "harry@potter.com",
       "password": "$2b$16$bVimTUde1Ln7GXgkvnRytuQLZa2M07/4rPZEDWseVzUvbqV89t.Se",
       "firstName": "Harry",
@@ -11,7 +12,8 @@
       "type": "client"
     },
     {
-      "id": 2,
+      "id": "19b9ef91-f0d1-4c90-bd77-21cb80e1e8b3",
+      "profileId": "4aed5225-e3e5-4668-8f52-0d174910e71a",
       "email": "mr@robot.com",
       "password": "$2b$16$bVimTUde1Ln7GXgkvnRytuQLZa2M07/4rPZEDWseVzUvbqV89t.Se",
       "firstName": "Mr",
@@ -21,7 +23,8 @@
       "type": "client"
     },
     {
-      "id": 3,
+      "id": "dc1846bf-c9b9-46de-9689-6383b0ef81d4",
+      "profileId": "feb543b7-2cd8-402e-b82e-e4fc48a8d777",
       "email": "john@snow.com",
       "password": "$2b$16$bVimTUde1Ln7GXgkvnRytuQLZa2M07/4rPZEDWseVzUvbqV89t.Se",
       "firstName": "John",
@@ -31,7 +34,8 @@
       "type": "client"
     },
     {
-      "id": 4,
+      "id": "0acfc8de-cd2f-473e-85c9-3b037f6a0ed0",
+      "profileId": "0aaaeeb1-b707-4c58-9898-61a3e21bfdda",
       "email": "ash@kethcum.com",
       "password": "$2b$16$bVimTUde1Ln7GXgkvnRytuQLZa2M07/4rPZEDWseVzUvbqV89t.Se",
       "firstName": "Ash",
@@ -41,7 +45,8 @@
       "type": "client"
     },
     {
-      "id": 5,
+      "id": "c6373144-e430-4237-b19a-8072992778d7",
+      "profileId": "a330de82-a633-4872-ac70-fa4e1d4d3ce7",
       "email": "john@lenon.com",
       "password": "$2b$16$bVimTUde1Ln7GXgkvnRytuQLZa2M07/4rPZEDWseVzUvbqV89t.Se",
       "firstName": "John",
@@ -51,7 +56,8 @@
       "type": "contractor"
     },
     {
-      "id": 6,
+      "id": "47b975de-4035-47ca-a8ff-e882945b7195",
+      "profileId": "0018c506-2742-40ae-b9b5-1c6bbc727776",
       "email": "linus@torvalds.com",
       "password": "$2b$16$bVimTUde1Ln7GXgkvnRytuQLZa2M07/4rPZEDWseVzUvbqV89t.Se",
       "firstName": "Linus",
@@ -61,7 +67,8 @@
       "type": "contractor"
     },
     {
-      "id": 7,
+      "id": "d6fbe4cd-1dcd-436b-80e5-ab3d790f2f7a",
+      "profileId": "f11a480f-324e-40a9-a2a8-ac49243749a0",
       "email": "alan@turing.com",
       "password": "$2b$16$bVimTUde1Ln7GXgkvnRytuQLZa2M07/4rPZEDWseVzUvbqV89t.Se",
       "firstName": "Alan",
@@ -71,7 +78,8 @@
       "type": "contractor"
     },
     {
-      "id": 8,
+      "id": "16410f75-19f4-4946-a0b2-21f5c93c28cd",
+      "profileId": "ecabcd8d-712b-43b9-a5f1-c88115df4e2e",
       "email": "aragorn@ilelessartelcontarvalds.com",
       "password": "$2b$16$bVimTUde1Ln7GXgkvnRytuQLZa2M07/4rPZEDWseVzUvbqV89t.Se",
       "firstName": "Aragorn",
@@ -83,67 +91,67 @@
   ],
   "contracts": [
     {
-      "id": 1,
+      "id": "164a580f-61d6-4dc7-8774-f4b79052c26e",
       "terms": "bla bla bla",
       "status": "terminated",
-      "contractorId": 5,
-      "clientId": 1
+      "contractorId": "a330de82-a633-4872-ac70-fa4e1d4d3ce7",
+      "clientId": "de93f55c-4aae-4318-8199-85972c491fb3"
     },
     {
-      "id": 2,
+      "id": "4ab6227f-b287-4319-8375-9559aed2bd5c",
       "terms": "bla bla bla",
       "status": "in_progress",
-      "contractorId": 6,
-      "clientId": 1
+      "contractorId": "0018c506-2742-40ae-b9b5-1c6bbc727776",
+      "clientId": "de93f55c-4aae-4318-8199-85972c491fb3"
     },
     {
-      "id": 3,
+      "id": "6426cbf2-d14e-47e6-9648-36c9db53022f",
       "terms": "bla bla bla",
       "status": "in_progress",
-      "contractorId": 6,
-      "clientId": 2
+      "contractorId": "0018c506-2742-40ae-b9b5-1c6bbc727776",
+      "clientId": "4aed5225-e3e5-4668-8f52-0d174910e71a"
     },
     {
-      "id": 4,
+      "id": "453526f9-ff70-4113-b5e3-fd0e8b11c9c7",
       "terms": "bla bla bla",
       "status": "in_progress",
-      "contractorId": 7,
-      "clientId": 2
+      "contractorId": "f11a480f-324e-40a9-a2a8-ac49243749a0",
+      "clientId": "4aed5225-e3e5-4668-8f52-0d174910e71a"
     },
     {
-      "id": 5,
+      "id": "f36a5b6d-386d-4e6a-97d9-978fafef8630",
       "terms": "bla bla bla",
       "status": "new",
-      "contractorId": 8,
-      "clientId": 3
+      "contractorId": "ecabcd8d-712b-43b9-a5f1-c88115df4e2e",
+      "clientId": "feb543b7-2cd8-402e-b82e-e4fc48a8d777"
     },
     {
-      "id": 6,
+      "id": "7972b650-0393-419c-ae50-bf28c213cd79",
       "terms": "bla bla bla",
       "status": "in_progress",
-      "contractorId": 7,
-      "clientId": 3
+      "contractorId": "f11a480f-324e-40a9-a2a8-ac49243749a0",
+      "clientId": "feb543b7-2cd8-402e-b82e-e4fc48a8d777"
     },
     {
-      "id": 7,
+      "id": "bc3f3efe-e1ec-467c-b064-cf7029d2104f",
       "terms": "bla bla bla",
       "status": "in_progress",
-      "contractorId": 7,
-      "clientId": 4
+      "contractorId": "f11a480f-324e-40a9-a2a8-ac49243749a0",
+      "clientId": "0aaaeeb1-b707-4c58-9898-61a3e21bfdda"
     },
     {
-      "id": 8,
+      "id": "0ed05bb9-486c-470d-a85e-cfa21439ce8d",
       "terms": "bla bla bla",
       "status": "in_progress",
-      "contractorId": 6,
-      "clientId": 4
+      "contractorId": "0018c506-2742-40ae-b9b5-1c6bbc727776",
+      "clientId": "0aaaeeb1-b707-4c58-9898-61a3e21bfdda"
     },
     {
-      "id": 9,
+      "id": "d4dbf793-f231-49f6-9717-88c7b874b047",
       "terms": "bla bla bla",
       "status": "in_progress",
-      "contractorId": 8,
-      "clientId": 4
+      "contractorId": "ecabcd8d-712b-43b9-a5f1-c88115df4e2e",
+      "clientId": "0aaaeeb1-b707-4c58-9898-61a3e21bfdda"
     }
   ],
   "jobs": [
@@ -152,98 +160,98 @@
       "price": 200,
       "paid": null,
       "paymentDate": null,
-      "contractId": 1
+      "contractId": "164a580f-61d6-4dc7-8774-f4b79052c26e"
     },
     {
       "description": "work",
       "price": 201,
       "paid": null,
       "paymentDate": null,
-      "contractId": 2
+      "contractId": "4ab6227f-b287-4319-8375-9559aed2bd5c"
     },
     {
       "description": "work",
       "price": 202,
       "paid": null,
       "paymentDate": null,
-      "contractId": 3
+      "contractId": "6426cbf2-d14e-47e6-9648-36c9db53022f"
     },
     {
       "description": "work",
       "price": 200,
       "paid": null,
       "paymentDate": null,
-      "contractId": 4
+      "contractId": "453526f9-ff70-4113-b5e3-fd0e8b11c9c7"
     },
     {
       "description": "work",
       "price": 200,
       "paid": null,
       "paymentDate": null,
-      "contractId": 7
+      "contractId": "bc3f3efe-e1ec-467c-b064-cf7029d2104f"
     },
     {
       "description": "work",
       "price": 2020,
       "paid": 1,
       "paymentDate": "2020-08-15 19:11:26.737 +00:00",
-      "contractId": 7
+      "contractId": "bc3f3efe-e1ec-467c-b064-cf7029d2104f"
     },
     {
       "description": "work",
       "price": 200,
       "paid": 1,
       "paymentDate": "2020-08-15 19:11:26.737 +00:00",
-      "contractId": 2
+      "contractId": "4ab6227f-b287-4319-8375-9559aed2bd5c"
     },
     {
       "description": "work",
       "price": 200,
       "paid": 1,
       "paymentDate": "2020-08-16 19:11:26.737 +00:00",
-      "contractId": 3
+      "contractId": "6426cbf2-d14e-47e6-9648-36c9db53022f"
     },
     {
       "description": "work",
       "price": 200,
       "paid": 1,
       "paymentDate": "2020-08-17 19:11:26.737 +00:00",
-      "contractId": 1
+      "contractId": "164a580f-61d6-4dc7-8774-f4b79052c26e"
     },
     {
       "description": "work",
       "price": 200,
       "paid": 1,
       "paymentDate": "2020-08-17 19:11:26.737 +00:00",
-      "contractId": 5
+      "contractId": "f36a5b6d-386d-4e6a-97d9-978fafef8630"
     },
     {
       "description": "work",
       "price": 21,
       "paid": 1,
       "paymentDate": "2020-08-10 19:11:26.737 +00:00",
-      "contractId": 1
+      "contractId": "164a580f-61d6-4dc7-8774-f4b79052c26e"
     },
     {
       "description": "work",
       "price": 21,
       "paid": 1,
       "paymentDate": "2020-08-15 19:11:26.737 +00:00",
-      "contractId": 2
+      "contractId": "4ab6227f-b287-4319-8375-9559aed2bd5c"
     },
     {
       "description": "work",
       "price": 121,
       "paid": 1,
       "paymentDate": "2020-08-15 19:11:26.737 +00:00",
-      "contractId": 3
+      "contractId": "6426cbf2-d14e-47e6-9648-36c9db53022f"
     },
     {
       "description": "work",
       "price": 121,
       "paid": 1,
       "paymentDate": "2020-08-14 23:11:26.737 +00:00",
-      "contractId": 3
+      "contractId": "6426cbf2-d14e-47e6-9648-36c9db53022f"
     }
   ]
 }

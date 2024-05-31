@@ -36,6 +36,7 @@
     "sequelize": "^6.37.3",
     "sequelize-typescript": "^2.1.6",
     "sqlite3": "^5.1.7",
+    "unique-names-generator": "^4.7.1",
     "uuid": "^9.0.1"
   },
   "devDependencies": {

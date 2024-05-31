@@ -36,7 +36,7 @@ export class AuthService {
   public async login(
     loginRequest: UserLoginRequest,
   ): Promise<UserLoginResponse> {
-    const user = await this.userService.getUserByEmail(loginRequest.email);
+    const user = await this.userService.findUserByEmail(loginRequest.email);
 
     if (!user) {
       throw new UnauthorizedException();

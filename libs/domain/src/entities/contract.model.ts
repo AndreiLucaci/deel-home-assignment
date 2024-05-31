@@ -4,9 +4,9 @@ import {
   Column,
   DataType,
   ForeignKey,
-  Model,
   Table,
 } from 'sequelize-typescript';
+import { BaseModel } from './base.model';
 import { Profile } from './profile.model';
 
 export enum ContractStatus {
@@ -16,7 +16,7 @@ export enum ContractStatus {
 }
 
 @Table
-export class Contract extends Model {
+export class Contract extends BaseModel {
   @AllowNull(false)
   @Column({
     type: DataType.TEXT,
