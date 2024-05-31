@@ -91,7 +91,8 @@
       "^@app/auth(|/.*)$": "<rootDir>/libs/auth/src/$1",
       "^@app/storage(|/.*)$": "<rootDir>/libs/storage/src/$1",
       "^@app/domain(|/.*)$": "<rootDir>/libs/domain/src/$1",
-      "^@app/exceptions(|/.*)$": "<rootDir>/libs/exceptions/src/$1"
+      "^@app/exceptions(|/.*)$": "<rootDir>/libs/exceptions/src/$1",
+      "^@app/admin(|/.*)$": "<rootDir>/libs/admin/src/$1"
     }
   }
 }
