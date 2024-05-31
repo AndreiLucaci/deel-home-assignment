@@ -10,7 +10,8 @@ import { Op } from 'sequelize';
 
 type Data = {
   users: {
-    id: number;
+    id: string;
+    profileId: string;
     email: string;
     password: string;
     firstName: string;
@@ -20,18 +21,18 @@ type Data = {
     type: string;
   }[];
   contracts: {
-    id: number;
+    id: string;
     terms: string;
     status: string;
-    contractorId: number;
-    clientId: number;
+    contractorId: string;
+    clientId: string;
   }[];
   jobs: {
     description: string;
     price: number;
     paid: number;
     paymentDate: string;
-    contractId: number;
+    contractId: string;
   }[];
 };
 
@@ -54,18 +55,16 @@ export class DeelSeeder {
     const data: Data = rawData;
 
     const results = data.users.map((x) => {
-      const id = uuid();
-
       const user = {
-        id,
+        id: x.id,
         email: x.email,
         password: x.password,
         name: `${x.firstName} ${x.lastName}`,
       };
 
       const profile = {
-        id: x.id,
-        userId: id,
+        id: x.profileId,
+        userId: x.id,
         firstName: x.firstName,
         lastName: x.lastName,
         profession: x.profession,
@@ -89,6 +88,7 @@ export class DeelSeeder {
         ...x,
         paymentDate: new Date(x.paymentDate),
         paid: Boolean(x.paid),
+        id: uuid(),
       })),
     );
 

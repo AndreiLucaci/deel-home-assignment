@@ -1,28 +1,36 @@
+import { AdminService } from '@app/admin';
 import { AuthService } from '@app/auth';
 import { Roles } from '@app/domain';
+import { ProfileType } from '@app/domain/entities/profile.model';
+import { UserCreateRequest } from '@app/domain/typings/user.types';
 import { DeelSeeder } from '@app/storage/seeder/deel.seeder';
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { AllowAnonymous } from '../../decorators/allowAnonymous.decorator';
 import { Claims } from '../../decorators/claims.decorator';
 import { AuthGuard } from '../../guards/auth.guard';
 import { UserCreateResponseDto } from '../auth/auth.responses.dto';
-import { AdminCreateRequestDto } from './admin.requests.dto';
-import { UserCreateRequest } from '@app/domain/typings/user.types';
-import { ProfileType } from '@app/domain/entities/profile.model';
-import { AllowAnonymous } from '../../decorators/allowAnonymous.decorator';
+import {
+  AdminCreateRequestDto,
+  AdminUserDeleteRequestDto,
+} from './admin.requests.dto';
+import { AdminUserDeleteResponseDto } from './admin.response.dto';
+import { getUserId } from '../../utils/request.utils';
+import { ClaimsGuard } from '../../guards/claims.guard';
 
 @Controller('admin')
 @ApiTags('Admin Controller')
 @ApiBearerAuth()
-@UseGuards(AuthGuard)
-@Claims(Roles.ADMIN)
+@UseGuards(AuthGuard, ClaimsGuard)
 export class AdminController {
   constructor(
     private deelSeeder: DeelSeeder,
     private authService: AuthService,
+    private adminService: AdminService,
   ) {}
 
   @Post('force-seed')
+  @Claims(Roles.ADMIN)
   async forceSeed(): Promise<void> {
     await this.deelSeeder.seed();
   }
@@ -39,6 +47,22 @@ export class AdminController {
     };
 
     const result = await this.authService.createAdmin(userCreateRequest);
+
+    return result;
+  }
+
+  @Post('delete-user')
+  @Claims(Roles.ADMIN)
+  async deleteUser(
+    @Request() httpReq: Request,
+    @Body() request: AdminUserDeleteRequestDto,
+  ): Promise<AdminUserDeleteResponseDto> {
+    const userId = getUserId(httpReq);
+
+    const result = await this.adminService.softDeleteUser({
+      adminId: userId,
+      email: request.email,
+    });
 
     return result;
   }

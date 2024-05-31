@@ -3,11 +3,10 @@ import {
   Column,
   DataType,
   HasOne,
-  Model,
-  PrimaryKey,
   Table,
 } from 'sequelize-typescript';
 import { Profile } from './profile.model';
+import { BaseModel } from './base.model';
 
 export enum Roles {
   ADMIN = 'admin',
@@ -15,13 +14,7 @@ export enum Roles {
 }
 
 @Table
-export class User extends Model {
-  // for better security, change this and use a UUID generator, not an int (also for collisions)
-  @PrimaryKey
-  @AllowNull(false)
-  @Column
-  id: string;
-
+export class User extends BaseModel {
   @AllowNull(false)
   @Column
   name: string;
@@ -43,4 +36,7 @@ export class User extends Model {
     defaultValue: Roles.USER,
   })
   role: Roles;
+
+  @Column
+  deletedBy: string;
 }

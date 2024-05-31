@@ -24,6 +24,8 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const responseBody = {
       statusCode: httpStatus,
       timestamp: new Date().toISOString(),
+      message:
+        exception instanceof Error ? exception.message : 'Something went wrong',
       path: httpAdapter.getRequestUrl(ctx.getRequest()),
     };
 

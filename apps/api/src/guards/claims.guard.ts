@@ -19,7 +19,7 @@ export class ClaimsGuard implements CanActivate {
     }
 
     const { user } = context.switchToHttp().getRequest();
-    const hasRole = requiredRoles.some((role) => user.roles?.includes(role));
+    const hasRole = requiredRoles.some((role) => user.role === role);
 
     if (hasRole) {
       return true;

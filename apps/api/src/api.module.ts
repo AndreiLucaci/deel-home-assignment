@@ -9,6 +9,7 @@ import { ServicesModule } from '@app/services';
 import { StorageModule } from '@app/storage';
 import { AuthController } from './controllers/auth/auth.controller';
 import { AdminController } from './controllers/admin/admin.controller';
+import { AdminModule } from '@app/admin';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { AdminController } from './controllers/admin/admin.controller';
     StorageModule,
     AuthModule,
     ServicesModule,
+    AdminModule,
   ],
   controllers: [AuthController, AdminController],
   providers: [ApiService],

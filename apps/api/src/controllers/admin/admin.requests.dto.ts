@@ -1,3 +1,4 @@
+import { UserDeleteRequest } from '@app/admin/admin.types';
 import { UserCreateRequest } from '@app/domain/typings/user.types';
 
 export class AdminCreateRequestDto
@@ -8,4 +9,8 @@ export class AdminCreateRequestDto
   lastName: string;
   email: string;
   password: string;
+}
+
+export class AdminUserDeleteRequestDto implements UserDeleteRequest {
+  email: string;
 }
