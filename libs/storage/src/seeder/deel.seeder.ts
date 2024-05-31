@@ -1,11 +1,12 @@
-import { User } from '@app/domain';
+import { Roles, User } from '@app/domain';
 import { Contract } from '@app/domain/entities/contract.model';
 import { Job } from '@app/domain/entities/job.model';
-import { Profile } from '@app/domain/entities/profile.model';
+import { Profile, ProfileType } from '@app/domain/entities/profile.model';
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import * as rawData from './data.json';
 import { v4 as uuid } from 'uuid';
+import { Op } from 'sequelize';
 
 type Data = {
   users: {
@@ -101,9 +102,32 @@ export class DeelSeeder {
   async clear() {
     await this.jobModel.destroy({ where: {} });
     await this.contractModel.destroy({ where: {} });
-    await this.profileModel.destroy({ where: {} });
-    await this.userModel.destroy({ where: {} });
+    await this.profileModel.destroy({
+      where: {
+        [Op.not]: {
+          type: ProfileType.OTHER,
+        },
+      },
+    });
+    const existingUsers = await this.userModel.findAll({
+      where: {
+        role: {
+          [Op.not]: Roles.ADMIN,
+        },
+      },
+    });
 
+    const result = await this.userModel.destroy({
+      where: {
+        [Op.not]: {
+          role: Roles.ADMIN,
+        },
+      },
+    });
+
+    this.#logger.debug(
+      `Cleared ${result} users out of ${existingUsers.length}`,
+    );
     this.#logger.debug('Cleared all tables');
   }
 }

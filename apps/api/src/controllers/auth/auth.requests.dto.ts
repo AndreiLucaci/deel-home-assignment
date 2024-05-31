@@ -5,7 +5,7 @@ import {
 } from '@app/domain/typings/user.types';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class UserCreateRequestDto implements UserCreateRequest {
+export class UserCreateRequestDto implements Omit<UserCreateRequest, 'role'> {
   @ApiProperty({ enum: ProfileType, enumName: 'ProfileType' })
   type: ProfileType;
   firstName: string;

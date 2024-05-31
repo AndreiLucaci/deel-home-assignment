@@ -3,7 +3,7 @@ import {
   UserLoginResponse,
 } from '@app/domain/typings/user.types';
 
-export class CreateUserResponseDto implements UserCreateResponse {
+export class UserCreateResponseDto implements UserCreateResponse {
   id: string;
   email: string;
   name: string;

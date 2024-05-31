@@ -10,11 +10,13 @@ import {
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UserCreateRequestDto, UserLoginRequestDto } from './auth.requests.dto';
 import {
-  CreateUserResponseDto,
+  UserCreateResponseDto,
   UserLoginResponseDto,
   UserMeResponseDto,
 } from './auth.responses.dto';
 import { AuthGuard } from '../../guards/auth.guard';
+import { Claims } from '../../decorators/claims.decorator';
+import { Roles } from '@app/domain';
 
 @ApiTags('Auth Controller')
 @Controller('auth')
@@ -23,9 +25,9 @@ export class AuthController {
 
   @Post('register')
   async register(
-    @Body() createUserRequest: UserCreateRequestDto,
-  ): Promise<CreateUserResponseDto> {
-    const result = await this.authService.createUser(createUserRequest);
+    @Body() userCreateRequest: UserCreateRequestDto,
+  ): Promise<UserCreateResponseDto> {
+    const result = await this.authService.createUser(userCreateRequest);
 
     return result;
   }
@@ -40,6 +42,7 @@ export class AuthController {
   }
 
   @Get('me')
+  @Claims(Roles.ADMIN, Roles.USER)
   @ApiBearerAuth()
   @UseGuards(AuthGuard)
   async me(@Request() req: Request): Promise<UserMeResponseDto> {

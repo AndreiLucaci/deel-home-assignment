@@ -12,6 +12,7 @@ import { User } from './user.model';
 export enum ProfileType {
   CLIENT = 'client',
   CONTRACTOR = 'contractor',
+  OTHER = 'other',
 }
 
 @Table

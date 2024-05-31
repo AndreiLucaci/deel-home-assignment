@@ -8,7 +8,7 @@ import {
   UserLoginResponse,
 } from '@app/domain/typings/user.types';
 import { UserService } from '@app/storage/user.service';
-import { User } from '@app/domain';
+import { Roles, User } from '@app/domain';
 import { TokenService } from './token.service';
 import { ProfileService } from '@app/storage/profile.service';
 
@@ -24,26 +24,13 @@ export class AuthService {
   public async createUser(
     createUserRequest: UserCreateRequest,
   ): Promise<UserCreateResponse> {
-    const hashedPassword = await this.cryptoService.hashPassword(
-      createUserRequest.password,
-    );
+    return this.registerUserEntity(createUserRequest);
+  }
 
-    const user = await this.userService.createUser({
-      ...createUserRequest,
-      password: hashedPassword,
-    });
-
-    const profile = await this.profileService.createProfile(
-      createUserRequest,
-      user.id,
-    );
-    user.profile = profile;
-
-    return {
-      id: user.id,
-      email: user.email,
-      name: user.name,
-    };
+  public async createAdmin(
+    createUserRequest: UserCreateRequest,
+  ): Promise<UserCreateResponse> {
+    return this.registerUserEntity(createUserRequest, Roles.ADMIN);
   }
 
   public async login(
@@ -67,6 +54,33 @@ export class AuthService {
     const token = await this.tokenService.generateAccessToken(user, []);
 
     return { token };
+  }
+
+  private async registerUserEntity(
+    createUserRequest: UserCreateRequest,
+    role: Roles = Roles.USER,
+  ) {
+    const hashedPassword = await this.cryptoService.hashPassword(
+      createUserRequest.password,
+    );
+
+    const user = await this.userService.createUser({
+      ...createUserRequest,
+      password: hashedPassword,
+      role,
+    });
+
+    const profile = await this.profileService.createProfile(
+      createUserRequest,
+      user.id,
+    );
+    user.profile = profile;
+
+    return {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+    };
   }
 
   private async checkPasswordValidity(password: string, user: User) {
