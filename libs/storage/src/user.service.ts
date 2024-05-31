@@ -22,6 +22,7 @@ export class UserService {
       // this is the hashed password
       password: request.password,
       // make sure this is the last field
+      role: request.role,
       id: uuid(),
     });
   }

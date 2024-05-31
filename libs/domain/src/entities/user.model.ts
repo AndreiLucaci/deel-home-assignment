@@ -1,12 +1,18 @@
 import {
   AllowNull,
   Column,
+  DataType,
   HasOne,
   Model,
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
 import { Profile } from './profile.model';
+
+export enum Roles {
+  ADMIN = 'admin',
+  USER = 'user',
+}
 
 @Table
 export class User extends Model {
@@ -30,4 +36,11 @@ export class User extends Model {
 
   @HasOne(() => Profile)
   profile: Profile;
+
+  @AllowNull(false)
+  @Column({
+    type: DataType.ENUM(...Object.values(Roles)),
+    defaultValue: Roles.USER,
+  })
+  role: Roles;
 }
