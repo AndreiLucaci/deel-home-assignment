@@ -7,6 +7,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import * as rawData from './data.json';
 import { v4 as uuid } from 'uuid';
 import { Op } from 'sequelize';
+import { Ledger, LedgerType } from '@app/domain/entities/ledger.model';
 
 type Data = {
   users: {
@@ -45,6 +46,7 @@ export class DeelSeeder {
     @InjectModel(Profile) private profileModel: typeof Profile,
     @InjectModel(Contract) private contractModel: typeof Contract,
     @InjectModel(Job) private jobModel: typeof Job,
+    @InjectModel(Ledger) private ledgerModel: typeof Ledger,
   ) {}
 
   async seed() {
@@ -82,6 +84,16 @@ export class DeelSeeder {
     const profiles = await this.profileModel.bulkCreate(
       results.map((x) => x.profile),
     );
+    const ledger = await this.ledgerModel.bulkCreate(
+      profiles.map((x) => ({
+        id: uuid(),
+        holderId: x.id,
+        amount: x.balance,
+        fromId: null,
+        toId: x.id,
+        type: LedgerType.TRANSACTION,
+      })),
+    );
     const contracts = await this.contractModel.bulkCreate(data.contracts);
     const jobs = await this.jobModel.bulkCreate(
       data.jobs.map((x) => ({
@@ -96,10 +108,12 @@ export class DeelSeeder {
     this.#logger.debug(`Created ${profiles.length} profiles`);
     this.#logger.debug(`Created ${contracts.length} contracts`);
     this.#logger.debug(`Created ${jobs.length} jobs`);
+    this.#logger.debug(`Created ${ledger.length} ledger entries`);
     this.#logger.debug('Seeding completed');
   }
 
   async clear() {
+    await this.ledgerModel.destroy({ where: {} });
     await this.jobModel.destroy({ where: {} });
     await this.contractModel.destroy({ where: {} });
     await this.profileModel.destroy({

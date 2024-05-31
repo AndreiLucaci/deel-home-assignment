@@ -14,6 +14,7 @@ import { AdminController } from './controllers/admin/admin.controller';
 import { AuthController } from './controllers/auth/auth.controller';
 import { ContractsController } from './controllers/contracts/contracts.controller';
 import { JobsController } from './controllers/jobs/jobs.controller';
+import { BalancesController } from './controllers/balance/balances.controller';
 
 @Module({
   imports: [
@@ -38,9 +39,10 @@ import { JobsController } from './controllers/jobs/jobs.controller';
   ],
   controllers: [
     AuthController,
-    AdminController,
     ContractsController,
     JobsController,
+    BalancesController,
+    AdminController,
   ],
   providers: [ApiService],
 })

@@ -3,6 +3,7 @@ import { UserCreateRequest } from '@app/domain/typings/user.types';
 import { anonymizeName } from '@app/utils';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { Transaction } from 'sequelize';
 import { v4 as uuid } from 'uuid';
 
 @Injectable()
@@ -32,6 +33,29 @@ export class ProfileRepository {
         type: ProfileType.CLIENT,
       },
       { where: { userId } },
+    );
+  }
+
+  async findClientProfileById(profileId: string) {
+    return this.profileModel.findOne({
+      where: {
+        id: profileId,
+        type: ProfileType.CLIENT,
+      },
+    });
+  }
+
+  async updateProfileBalanceTransaction(
+    transaction: Transaction,
+    profileId: string,
+    amount: number,
+  ) {
+    return this.profileModel.update(
+      { balance: amount },
+      {
+        where: { id: profileId },
+        transaction,
+      },
     );
   }
 }

@@ -4,10 +4,12 @@ import {
   Column,
   DataType,
   ForeignKey,
+  HasMany,
   Table,
 } from 'sequelize-typescript';
 import { BaseModel } from './base.model';
 import { User } from './user.model';
+import { Ledger } from './ledger.model';
 
 export enum ProfileType {
   CLIENT = 'client',
@@ -34,6 +36,12 @@ export class Profile extends BaseModel {
   })
   type: ProfileType;
 
+  @Column({
+    type: DataType.DECIMAL(10, 2),
+    defaultValue: 0,
+  })
+  balance: number;
+
   @ForeignKey(() => User)
   @Column
   userId: string;
@@ -46,4 +54,11 @@ export class Profile extends BaseModel {
 
   @Column
   deletedBy: string;
+
+  @HasMany(() => Ledger, {
+    foreignKey: 'holderId',
+    sourceKey: 'id',
+    keyType: DataType.UUIDV4,
+  })
+  ledgers: Ledger[];
 }
