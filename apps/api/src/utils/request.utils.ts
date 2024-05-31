@@ -6,3 +6,9 @@ export const getUserId = (req: Request): string => {
 
   return user.id;
 };
+
+export const getUserProfileId = (req: Request): string => {
+  const user = req['user'];
+
+  return user.profileId;
+};

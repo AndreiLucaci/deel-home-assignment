@@ -6,7 +6,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { v4 as uuid } from 'uuid';
 
 @Injectable()
-export class ProfileService {
+export class ProfileRepository {
   constructor(@InjectModel(Profile) private profileModel: typeof Profile) {}
 
   async createProfile(userCreateRequest: UserCreateRequest, userId: string) {

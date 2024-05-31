@@ -38,7 +38,10 @@ export class Profile extends BaseModel {
   @Column
   userId: string;
 
-  @BelongsTo(() => User)
+  @BelongsTo(() => User, {
+    targetKey: 'id',
+    keyType: DataType.UUIDV4,
+  })
   user: User;
 
   @Column

@@ -60,6 +60,12 @@
       ],
       "@app/admin/*": [
         "libs/admin/src/*"
+      ],
+      "@app/application": [
+        "libs/application/src"
+      ],
+      "@app/application/*": [
+        "libs/application/src/*"
       ]
     }
   }
