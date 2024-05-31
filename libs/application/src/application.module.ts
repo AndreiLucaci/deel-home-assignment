@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ApplicationService } from './application.service';
 import { CqrsModule } from '@nestjs/cqrs';
-import { QueryHandlers } from './contracts/queries';
 import { StorageModule } from '@app/storage';
+import { KnownQueryHandlers } from './known-queries';
 
 @Module({
   imports: [CqrsModule, StorageModule],
-  providers: [ApplicationService, ...QueryHandlers],
-  exports: [ApplicationService, ...QueryHandlers],
+  providers: [ApplicationService, ...KnownQueryHandlers],
+  exports: [ApplicationService, ...KnownQueryHandlers],
 })
 export class ApplicationModule {}

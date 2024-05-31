@@ -32,6 +32,7 @@ export class Job extends BaseModel {
 
   @Column({
     type: DataType.DATE,
+    defaultValue: null,
   })
   paymentDate: Date;
 
@@ -39,6 +40,9 @@ export class Job extends BaseModel {
   @Column
   contractId: number;
 
-  @BelongsTo(() => Contract, 'contractId')
+  @BelongsTo(() => Contract, {
+    targetKey: 'id',
+    keyType: DataType.UUIDV4,
+  })
   contract: Contract;
 }

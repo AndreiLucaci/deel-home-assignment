@@ -4,10 +4,12 @@ import {
   Column,
   DataType,
   ForeignKey,
+  HasMany,
   Table,
 } from 'sequelize-typescript';
 import { BaseModel } from './base.model';
 import { Profile } from './profile.model';
+import { Job } from './job.model';
 
 export enum ContractStatus {
   NEW = 'new',
@@ -41,4 +43,11 @@ export class Contract extends BaseModel {
 
   @BelongsTo(() => Profile, 'contractorId')
   contractor: Profile;
+
+  @HasMany(() => Job, {
+    sourceKey: 'id',
+    foreignKey: 'contractId',
+    keyType: DataType.UUIDV4,
+  })
+  jobs: Job[];
 }
