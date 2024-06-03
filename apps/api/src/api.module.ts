@@ -2,7 +2,6 @@ import { AdminModule } from '@app/admin';
 import { CQRSApplicationModule } from 'libs/cqrs/src';
 import { AuthModule } from '@app/auth';
 import { KnownEntityModels } from '@app/domain';
-import { ServicesModule } from '@app/services';
 import { StorageModule } from '@app/storage';
 import { SequelizeConfig } from '@app/utils/constants/sequelize';
 import { UtilsModule } from '@app/utils/utils.module';
@@ -33,7 +32,6 @@ import { BalancesController } from './controllers/balance/balances.controller';
     UtilsModule,
     StorageModule,
     AuthModule,
-    ServicesModule,
     AdminModule,
     CQRSApplicationModule,
   ],

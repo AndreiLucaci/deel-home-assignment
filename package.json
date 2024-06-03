@@ -91,7 +91,6 @@
       "<rootDir>/libs/"
     ],
     "moduleNameMapper": {
-      "^@app/services(|/.*)$": "<rootDir>/libs/services/src/$1",
       "^@app/utils(|/.*)$": "<rootDir>/libs/utils/src/$1",
       "^@app/auth(|/.*)$": "<rootDir>/libs/auth/src/$1",
       "^@app/storage(|/.*)$": "<rootDir>/libs/storage/src/$1",

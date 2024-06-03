@@ -19,8 +19,6 @@
     "noFallthroughCasesInSwitch": false,
     "resolveJsonModule": true,
     "paths": {
-      "@app/services": ["libs/services/src"],
-      "@app/services/*": ["libs/services/src/*"],
       "@app/utils": ["libs/utils/src"],
       "@app/utils/*": ["libs/utils/src/*"],
       "@app/auth": ["libs/auth/src"],
