@@ -8,3 +8,12 @@ export class DepositExceedsMaximumJobAmountException extends HttpException {
     );
   }
 }
+
+export class InsufficientFundsException extends HttpException {
+  constructor(originalAmount: number, neededAmount: number) {
+    super(
+      `Insufficient funds: needed ${neededAmount} got only ${originalAmount}`,
+      HttpStatus.BAD_REQUEST,
+    );
+  }
+}

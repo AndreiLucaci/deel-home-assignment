@@ -1,4 +1,4 @@
-import { CurrentBalanceResponse } from '@app/application/balance/balance.types';
+import { GetCurrentBalanceQueryResult } from '@app/application/balance/queries/get-current.query';
 import { IsNumber, IsPositive, NotEquals } from 'class-validator';
 
 export class DepositBalanceRequestDto {
@@ -12,7 +12,7 @@ export class DepositBalanceRequestDto {
   amount: number;
 }
 
-export class CurrentBalanceResponseDto implements CurrentBalanceResponse {
+export class CurrentBalanceResponseDto implements GetCurrentBalanceQueryResult {
   amount: number;
   profileId: string;
 }

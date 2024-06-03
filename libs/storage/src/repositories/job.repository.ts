@@ -41,6 +41,22 @@ export class JobRepository {
     return jobs ?? [];
   }
 
+  async getJobByIdAndProfileIdTransaction(
+    transaction: Transaction,
+    jobId: string,
+    profileId: string,
+  ): Promise<Job> {
+    return this.getJobByIdAndProfileIdWithOptionalTransaction(
+      jobId,
+      profileId,
+      transaction,
+    );
+  }
+
+  async getJobByIdAndProfileId(jobId: string, profileId: string): Promise<Job> {
+    return this.getJobByIdAndProfileIdWithOptionalTransaction(jobId, profileId);
+  }
+
   async sumJobPriceByClientId(
     transaction: Transaction,
     profileId: string,
@@ -76,5 +92,72 @@ export class JobRepository {
     });
 
     return result?.dataValues?.totalPrice;
+  }
+
+  async updateJobPaidStatusTransaction(
+    transaction: Transaction,
+    jobId: string,
+    paid: boolean,
+  ): Promise<void> {
+    await this.jobModel.update<Job>(
+      {
+        paid,
+        paymentDate: new Date(),
+      },
+      {
+        where: {
+          id: jobId,
+        },
+        transaction,
+      },
+    );
+  }
+
+  async countUnpaidJobsByContractIdTransaction(
+    transaction: Transaction,
+    contractId: string,
+  ): Promise<number> {
+    return this.jobModel.count({
+      where: {
+        paid: {
+          [Op.ne]: true,
+        },
+        contractId,
+      },
+      transaction,
+    });
+  }
+
+  private async getJobByIdAndProfileIdWithOptionalTransaction(
+    jobId: string,
+    profileId: string,
+    transaction?: Transaction,
+  ) {
+    const validContracts = await this.contractModel.findAll({
+      attributes: ['id'],
+      where: {
+        [Op.or]: [
+          {
+            clientId: profileId,
+          },
+          {
+            contractorId: profileId,
+          },
+        ],
+      },
+      include: [
+        {
+          model: Job,
+          where: {
+            id: jobId,
+          },
+        },
+      ],
+      transaction,
+    });
+
+    const [job] = validContracts.map((x) => x.jobs).flat(); // should be just one here
+
+    return job?.id ? job : null;
   }
 }

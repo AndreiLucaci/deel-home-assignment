@@ -39,7 +39,7 @@ export class DepositBalanceCommandHandler
         if (jobAmountAtDepositTime) {
           // we check only if the client has unpaid jobs
           const maximumDepositAmount = (25 / 100) * jobAmountAtDepositTime; // 25% of the total job amount
-          if (maximumDepositAmount < command.amount) {
+          if (command.amount > maximumDepositAmount) {
             throw new DepositExceedsMaximumJobAmountException(
               maximumDepositAmount,
               command.amount,

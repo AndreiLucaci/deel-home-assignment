@@ -32,14 +32,14 @@ export class Contract extends BaseModel {
 
   @ForeignKey(() => Profile)
   @Column
-  clientId: number;
+  clientId: string;
 
   @BelongsTo(() => Profile, 'clientId')
   client: Profile;
 
   @ForeignKey(() => Profile)
   @Column
-  contractorId: number;
+  contractorId: string;
 
   @BelongsTo(() => Profile, 'contractorId')
   contractor: Profile;

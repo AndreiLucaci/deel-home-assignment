@@ -8,7 +8,10 @@ import {
   DepositBalanceRequestDto,
 } from './balance.requests.dto';
 import { DepositBalanceCommand } from '@app/application/balance/commands/deposit.command';
-import { GetCurrentBalanceQuery } from '@app/application/balance/queries/get-current.query';
+import {
+  GetCurrentBalanceQuery,
+  GetCurrentBalanceQueryResult,
+} from '@app/application/balance/queries/get-current.query';
 
 @Controller('balances')
 @ApiTags('Balances Controller')
@@ -31,7 +34,10 @@ export class BalancesController {
       new DepositBalanceCommand(depositBalanceRequest.amount, profileId),
     );
 
-    const result = this.queryBus.execute(new GetCurrentBalanceQuery(profileId));
+    const result = await this.queryBus.execute<
+      GetCurrentBalanceQuery,
+      GetCurrentBalanceQueryResult
+    >(new GetCurrentBalanceQuery(profileId));
 
     return result;
   }

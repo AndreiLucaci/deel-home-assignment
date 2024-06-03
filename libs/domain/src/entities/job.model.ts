@@ -38,7 +38,7 @@ export class Job extends BaseModel {
 
   @ForeignKey(() => Contract)
   @Column
-  contractId: number;
+  contractId: string;
 
   @BelongsTo(() => Contract, {
     targetKey: 'id',

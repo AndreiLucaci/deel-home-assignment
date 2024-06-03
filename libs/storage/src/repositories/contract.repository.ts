@@ -1,7 +1,7 @@
 import { Contract, ContractStatus } from '@app/domain/entities/contract.model';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { Op } from 'sequelize';
+import { Op, Transaction } from 'sequelize';
 
 @Injectable()
 export class ContractRepository {
@@ -27,5 +27,29 @@ export class ContractRepository {
         },
       },
     });
+  }
+
+  public async findNonTerminatedContractByIdTransaction(
+    transaction: Transaction,
+    contractId: string,
+  ): Promise<Contract> {
+    return this.contractModel.findOne({
+      where: {
+        id: contractId,
+        status: { [Op.not]: ContractStatus.TERMINATED },
+      },
+      transaction,
+    });
+  }
+
+  public async updateContractStatusByIdTransaction(
+    transaction: Transaction,
+    contractId: string,
+    status: ContractStatus,
+  ): Promise<void> {
+    await this.contractModel.update(
+      { status },
+      { where: { id: contractId }, transaction },
+    );
   }
 }

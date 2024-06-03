@@ -1,12 +1,15 @@
 import { LedgerRepository } from '@app/storage/repositories/ledger.repository';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { Sequelize } from 'sequelize-typescript';
-import { GetCurrentBalanceQuery } from '../get-current.query';
-import { CurrentBalanceResponse } from '../../balance.types';
+import {
+  GetCurrentBalanceQuery,
+  GetCurrentBalanceQueryResult,
+} from '../get-current.query';
 
 @QueryHandler(GetCurrentBalanceQuery)
 export class GetCurrentBalanceQueryHandler
-  implements IQueryHandler<GetCurrentBalanceQuery>
+  implements
+    IQueryHandler<GetCurrentBalanceQuery, GetCurrentBalanceQueryResult>
 {
   constructor(
     private readonly sequelize: Sequelize,
@@ -14,7 +17,7 @@ export class GetCurrentBalanceQueryHandler
   ) {}
   async execute(
     query: GetCurrentBalanceQuery,
-  ): Promise<CurrentBalanceResponse> {
+  ): Promise<GetCurrentBalanceQueryResult> {
     const amount = await this.sequelize.transaction<number>((transaction) =>
       this.ledgerRepository.sumLedgerAmountByHolderIdTransaction(
         transaction,
