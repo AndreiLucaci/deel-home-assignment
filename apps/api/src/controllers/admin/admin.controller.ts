@@ -4,7 +4,15 @@ import { Roles } from '@app/domain';
 import { ProfileType } from '@app/domain/entities/profile.model';
 import { UserCreateRequest } from '@app/domain/typings/user.types';
 import { DeelSeeder } from '@app/storage/seeder/deel.seeder';
-import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Query,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AllowAnonymous } from '../../decorators/allowAnonymous.decorator';
 import { Claims } from '../../decorators/claims.decorator';
@@ -17,6 +25,11 @@ import {
 import { AdminUserDeleteResponseDto } from './admin.response.dto';
 import { getUserId } from '../../utils/request.utils';
 import { ClaimsGuard } from '../../guards/claims.guard';
+import { QueryBus } from '@nestjs/cqrs';
+import {
+  BestProfessionQuery,
+  BestProfessionQueryResult,
+} from '@app/application/admin/best-profession.query';
 
 @Controller('admin')
 @ApiTags('Admin Controller')
@@ -24,9 +37,12 @@ import { ClaimsGuard } from '../../guards/claims.guard';
 @UseGuards(AuthGuard, ClaimsGuard)
 export class AdminController {
   constructor(
+    // SOA
     private deelSeeder: DeelSeeder,
     private authService: AuthService,
     private adminService: AdminService,
+    // CQRS
+    private queryBus: QueryBus,
   ) {}
 
   @Post('force-seed')
@@ -65,5 +81,17 @@ export class AdminController {
     });
 
     return result;
+  }
+
+  @Get('best-profession')
+  @Claims(Roles.ADMIN)
+  async getBestProfession(
+    @Query('start') rawStartDate: string,
+    @Query('end') rawEndDate: string,
+  ): Promise<BestProfessionQueryResult> {
+    const startDate = new Date(rawStartDate);
+    const endDate = new Date(rawEndDate);
+
+    return this.queryBus.execute(new BestProfessionQuery(startDate, endDate));
   }
 }

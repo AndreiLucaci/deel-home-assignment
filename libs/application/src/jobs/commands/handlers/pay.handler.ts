@@ -81,6 +81,7 @@ export class PayJobCommandHandler implements ICommandHandler<PayJobCommand> {
         command.clientId,
         job.price * -1,
         contract.id, // we can have this as an indicator
+        contract.clientId,
       );
       this.#logger.debug(
         `Client with id ${command.clientId} paid ${job.price} for job with id ${command.jobId}`,
@@ -91,6 +92,7 @@ export class PayJobCommandHandler implements ICommandHandler<PayJobCommand> {
         contract.contractorId,
         job.price,
         contract.id,
+        contract.contractorId,
       );
       this.#logger.debug(
         `Contractor with id ${contract.contractorId} received ${job.price} for job with id ${command.jobId}`,
