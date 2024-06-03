@@ -1,3 +1,4 @@
+import { BestClientsQueryHandler } from './admin/queries/best-clients.handler';
 import { BestProfessionQueryHandler } from './admin/queries/best-profession.handler';
 import { GetCurrentBalanceQueryHandler } from './balance/queries/handlers/get-current.handler';
 import { GetContractByIdQueryHandler } from './contracts/queries/handlers/get-by-id.handler';
@@ -19,4 +20,5 @@ export const KnownQueryHandlers = [
 
   // admin
   BestProfessionQueryHandler,
+  BestClientsQueryHandler,
 ];

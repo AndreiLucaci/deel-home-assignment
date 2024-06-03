@@ -1,4 +1,8 @@
 import { AdminService } from '@app/admin';
+import {
+  BestProfessionQuery,
+  BestProfessionQueryResult,
+} from '@app/application/admin/best-profession.query';
 import { AuthService } from '@app/auth';
 import { Roles } from '@app/domain';
 import { ProfileType } from '@app/domain/entities/profile.model';
@@ -12,24 +16,28 @@ import {
   Query,
   Request,
   UseGuards,
+  ValidationPipe,
 } from '@nestjs/common';
+import { QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AllowAnonymous } from '../../decorators/allowAnonymous.decorator';
 import { Claims } from '../../decorators/claims.decorator';
 import { AuthGuard } from '../../guards/auth.guard';
+import { ClaimsGuard } from '../../guards/claims.guard';
+import { getUserId } from '../../utils/request.utils';
 import { UserCreateResponseDto } from '../auth/auth.responses.dto';
 import {
   AdminCreateRequestDto,
   AdminUserDeleteRequestDto,
+  DateRangeQueryDto,
+  LimitDateRangeQueryDto,
 } from './admin.requests.dto';
 import { AdminUserDeleteResponseDto } from './admin.response.dto';
-import { getUserId } from '../../utils/request.utils';
-import { ClaimsGuard } from '../../guards/claims.guard';
-import { QueryBus } from '@nestjs/cqrs';
 import {
-  BestProfessionQuery,
-  BestProfessionQueryResult,
-} from '@app/application/admin/best-profession.query';
+  BestClientQueryResultItem,
+  BestClientsQuery,
+  BestClientsQueryResult,
+} from '@app/application/admin/best-clients.query';
 
 @Controller('admin')
 @ApiTags('Admin Controller')
@@ -86,12 +94,35 @@ export class AdminController {
   @Get('best-profession')
   @Claims(Roles.ADMIN)
   async getBestProfession(
-    @Query('start') rawStartDate: string,
-    @Query('end') rawEndDate: string,
+    @Query(
+      new ValidationPipe({
+        transform: true,
+      }),
+    )
+    query: DateRangeQueryDto,
   ): Promise<BestProfessionQueryResult> {
-    const startDate = new Date(rawStartDate);
-    const endDate = new Date(rawEndDate);
+    const { start: startDate, end: endDate } = query;
 
     return this.queryBus.execute(new BestProfessionQuery(startDate, endDate));
+  }
+
+  @Get('best-clients')
+  @Claims(Roles.ADMIN)
+  async getBestClients(
+    @Query(
+      new ValidationPipe({
+        transform: true,
+      }),
+    )
+    query: LimitDateRangeQueryDto,
+  ): Promise<BestClientQueryResultItem[]> {
+    const { start: startDate, end: endDate, limit } = query;
+
+    const result = await this.queryBus.execute<
+      BestClientsQuery,
+      BestClientsQueryResult
+    >(new BestClientsQuery(startDate, endDate, limit));
+
+    return result.clients;
   }
 }

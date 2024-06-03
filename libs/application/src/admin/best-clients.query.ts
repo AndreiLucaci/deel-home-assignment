@@ -2,13 +2,13 @@ import { IQuery, IQueryResult } from '@nestjs/cqrs';
 
 export class BestClientsQuery implements IQuery {
   constructor(
-    public readonly startDate: string,
-    public readonly endDate: string,
+    public readonly startDate: Date,
+    public readonly endDate: Date,
     public readonly limit: number = 2,
   ) {}
 }
 
-export class BestClientQueryItem {
+export class BestClientQueryResultItem {
   constructor(
     public id: string,
     public fullName: string,
@@ -17,5 +17,5 @@ export class BestClientQueryItem {
 }
 
 export class BestClientsQueryResult implements IQueryResult {
-  constructor(public clients: BestClientQueryItem[]) {}
+  constructor(public clients: BestClientQueryResultItem[]) {}
 }

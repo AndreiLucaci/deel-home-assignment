@@ -102,4 +102,55 @@ export class LedgerRepository {
       value: result.dataValues?.value ?? 0,
     };
   }
+
+  async getMostProfitableClients(
+    startDate: Date,
+    endDate: Date,
+    limit: number = 2,
+  ): Promise<{ fullName: string; paid: number; id: string }[]> {
+    const result = await this.ledgerModel.findAll<Ledger>({
+      attributes: [
+        [
+          this.ledgerModel.sequelize.fn(
+            'round',
+            this.ledgerModel.sequelize.fn(
+              'sum',
+              this.ledgerModel.sequelize.col('amount'),
+            ),
+            2,
+          ),
+          'paid',
+        ],
+        'holderId',
+      ],
+      where: {
+        createdAt: {
+          [Op.between]: [startDate, endDate],
+        },
+        type: LedgerType.TRANSACTION,
+        '$holder.type$': ProfileType.CLIENT,
+        // since these are clients, we need to "sum" the negative amounts, as they have paid for their services
+        // and not mix them with their deposits
+        amount: {
+          [Op.lt]: 0,
+        },
+      },
+      group: ['holderId'],
+      order: [['paid', 'DESC']],
+      limit,
+      include: [
+        {
+          model: Profile,
+          attributes: ['id', 'firstName', 'lastName'],
+        },
+      ],
+    });
+
+    return result.map((item) => ({
+      id: item.holder?.id,
+      // since for clients these are negative values, we need to abs them
+      paid: Math.abs(item.dataValues?.paid ?? 0),
+      fullName: [item.holder?.firstName, item.holder?.lastName].join(' '),
+    }));
+  }
 }
