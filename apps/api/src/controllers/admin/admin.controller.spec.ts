@@ -1,9 +1,11 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { AdminController } from './admin.controller';
-import { DeelSeeder } from '@app/storage/seeder/deel.seeder';
+import { AdminService } from '@app/admin';
 import { AuthService } from '@app/auth';
-import { AuthGuard } from '../../guards/auth.guard';
+import { DeelSeeder } from '@app/storage/seeder/deel.seeder';
+import { QueryBus } from '@nestjs/cqrs';
 import { JwtService } from '@nestjs/jwt';
+import { Test, TestingModule } from '@nestjs/testing';
+import { AuthGuard } from '../../guards/auth.guard';
+import { AdminController } from './admin.controller';
 
 describe('AdminController', () => {
   let controller: AdminController;
@@ -20,11 +22,19 @@ describe('AdminController', () => {
           useValue: jest.fn(),
         },
         {
+          provide: AdminService,
+          useValue: jest.fn(),
+        },
+        {
           provide: AuthService,
           useValue: jest.fn(),
         },
         {
           provide: AuthGuard,
+          useValue: jest.fn(),
+        },
+        {
+          provide: QueryBus,
           useValue: jest.fn(),
         },
       ],
