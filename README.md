@@ -1,73 +1,85 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# deel hometask
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+this is my solution to the deel hometask
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## api documentation
 
-## Description
+### run it up:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- `yarn` && `yarn start:dev`
+  or
+- `VSCODE` debug tab -> `Debug Dev`
 
-## Installation
+### access it
 
-```bash
-$ yarn install
-```
+go to http://localhost:3127/api#/ to loadup swagger-ui
 
-## Running the app
+for almost all of the endpoints, you will need to be authenticated, so you will need to login first:
 
-```bash
-# development
-$ yarn run start
+1. create a new admin account -> recommended, for the admin part of the api or use my existing one:
 
-# watch mode
-$ yarn run start:dev
+- username: `andrei@deel.com`
+- password: `T3st1ng!`
 
-# production mode
-$ yarn run start:prod
-```
+2. to use the existing users, if seeded properly (which it is with the existing `database.sqlite`), accounts are as follows:
 
-## Test
+- username: `firstName@lastName.com`
+- password: `T3st1ng!`
 
-```bash
-# unit tests
-$ yarn run test
+example:
 
-# e2e tests
-$ yarn run test:e2e
+- username: `harry@potter.com`
+- password: `T3st1ng!`
 
-# test coverage
-$ yarn run test:cov
-```
+The endpoint returns a token that needs to be added in with the `Authorize` button in the swagger-ui (a.k.a. `Bearer <token>` header)
 
-## Support
+## changes to the original requirements
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### 1. added authN + authZ (simple) - auth controller
 
-## Stay in touch
+Intent: there are scoped requests, so we need to know who is making the request and if they are allowed to make it.
+Roles: user (normal), admin (for the admin part of the requirement)
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### 2. added a simple admin part
 
-## License
+Intent: to be able to manage users, roles, and force-seed the db
 
-Nest is [MIT licensed](LICENSE).
+- `force-seed`: seeds the db with the initial data set (clearing all the data first -> except users and profiles that are attached to admins)
+- `register-admin`: creates a new admin user (to access the admin part of the api)
+- `delete-user`: soft-deletes a user
+- `best-profession`: normal hometask query -> _ this is scoped to admins only _
+- `best-clients`: normal hometask query -> _ this is scoped to admins only _
+
+### 3. changed data model for all tables to user guids instead of ids
+
+Intent: this is more secure and allows for better data isolation + helps with id collision a lot
+
+### 4. added a new table: `ledgers`
+
+Intent: to be able to track all the transactions that are happening in the system and not rely on a single field in the `profile` table.
+This new table is used for all transactions of the users, tracking negative and positive transactions for clients and contractors.
+This also is used as an event source table for clients/contractors balance.
+
+### 4. implementation details
+
+This is implemented with `NestJs` as the underlying framework, and `typescript` as (haha linter) `js` superset. This is also a mono-repo, with micro-services in mind (each app inside `apps` folder can be deployed independently).
+All the `libs` can be shared between the `apps`.
+
+- `apps/api` - the main api app
+
+Implementation details:
+
+- `authN` - makes use of `bcrypt` for password hashing and checking with 16 cycle rounds
+- `authZ` - makes use of `jsonwebtoken` for token generation and validation
+- `swagger` - openapi 3.0 documentation at http://localhost:3127/api#/
+- `sequelize` - as the ORM for the database
+- `SoA` - for regular user management / authN / authZ
+- `CQRS` - for all the DB part of the task
+
+### 5. unit tests
+
+To run the unit-tests run `yarn test`.
+
+Two things are well tested:
+- `bcrypt` password hashing and checking in: [`libs/utils/src/crypto/crypto.spec.ts`](libs/utils/src/crypto/crypto.spec.ts)
+- `pay command handler` for the `pay` functionality in: [`libs/cqrs/src/jobs/commands/handlers/pay.handler.spec.ts`](libs/cqrs/src/jobs/commands/handlers/pay.handler.spec.ts)
