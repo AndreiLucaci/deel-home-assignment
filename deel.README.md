@@ -14,6 +14,25 @@ this is my solution to the deel hometask
 
 go to http://localhost:3127/api#/ to loadup swagger-ui
 
+for almost all of the endpoints, you will need to be authenticated, so you will need to login first:
+
+1. create a new admin account -> recommended, for the admin part of the api or use my existing one:
+
+- username: `andrei@deel.com`
+- password: `T3st1ng!`
+
+2. to use the existing users, if seeded properly (which it is with the existing `database.sqlite`), accounts are as follows:
+
+- username: `firstName@lastName.com`
+- password: `T3st1ng!`
+
+example:
+
+- username: `harry@potter.com`
+- password: `T3st1ng!`
+
+The endpoint returns a token that needs to be added in with the `Authorize` button in the swagger-ui (a.k.a. `Bearer <token>` header)
+
 ## changes to the original requirements
 
 ### 1. added authN + authZ (simple) - auth controller
@@ -43,7 +62,7 @@ This also is used as an event source table for clients/contractors balance.
 
 ### 4. implementation details
 
-This is implemented with `NestJs` as the underlying framework. This is also a mono-repo, with micro-services in mind (each app inside `apps` folder can be deployed independently).
+This is implemented with `NestJs` as the underlying framework, and `typescript` as (haha linter) `js` superset. This is also a mono-repo, with micro-services in mind (each app inside `apps` folder can be deployed independently).
 All the `libs` can be shared between the `apps`.
 
 - `apps/api` - the main api app
