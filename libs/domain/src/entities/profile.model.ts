@@ -56,8 +56,8 @@ export class Profile extends BaseModel {
   deletedBy: string;
 
   @HasMany(() => Ledger, {
-    foreignKey: 'holderId',
     sourceKey: 'id',
+    foreignKey: 'holderId',
     keyType: DataType.UUIDV4,
   })
   ledgers: Ledger[];
