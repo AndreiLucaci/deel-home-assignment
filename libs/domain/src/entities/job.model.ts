@@ -32,13 +32,17 @@ export class Job extends BaseModel {
 
   @Column({
     type: DataType.DATE,
+    defaultValue: null,
   })
   paymentDate: Date;
 
   @ForeignKey(() => Contract)
   @Column
-  contractId: number;
+  contractId: string;
 
-  @BelongsTo(() => Contract, 'contractId')
+  @BelongsTo(() => Contract, {
+    targetKey: 'id',
+    keyType: DataType.UUIDV4,
+  })
   contract: Contract;
 }

@@ -1,18 +1,20 @@
-import { Module } from '@nestjs/common';
-import { ApiService } from './api.service';
-import { SequelizeModule } from '@nestjs/sequelize';
-import { SequelizeConfig } from '@app/utils/constants/sequelize';
-import { KnownEntityModels } from '@app/domain';
+import { AdminModule } from '@app/admin';
+import { ApplicationModule } from '@app/application';
 import { AuthModule } from '@app/auth';
-import { UtilsModule } from '@app/utils/utils.module';
+import { KnownEntityModels } from '@app/domain';
 import { ServicesModule } from '@app/services';
 import { StorageModule } from '@app/storage';
-import { AuthController } from './controllers/auth/auth.controller';
-import { AdminController } from './controllers/admin/admin.controller';
-import { AdminModule } from '@app/admin';
-import { ContractsController } from './controllers/contracts/contracts.controller';
+import { SequelizeConfig } from '@app/utils/constants/sequelize';
+import { UtilsModule } from '@app/utils/utils.module';
+import { Module } from '@nestjs/common';
 import { CqrsModule } from '@nestjs/cqrs';
-import { ApplicationModule } from '@app/application';
+import { SequelizeModule } from '@nestjs/sequelize';
+import { ApiService } from './api.service';
+import { AdminController } from './controllers/admin/admin.controller';
+import { AuthController } from './controllers/auth/auth.controller';
+import { ContractsController } from './controllers/contracts/contracts.controller';
+import { JobsController } from './controllers/jobs/jobs.controller';
+import { BalancesController } from './controllers/balance/balances.controller';
 
 @Module({
   imports: [
@@ -35,7 +37,13 @@ import { ApplicationModule } from '@app/application';
     AdminModule,
     ApplicationModule,
   ],
-  controllers: [AuthController, AdminController, ContractsController],
+  controllers: [
+    AuthController,
+    ContractsController,
+    JobsController,
+    BalancesController,
+    AdminController,
+  ],
   providers: [ApiService],
 })
 export class ApiModule {}
