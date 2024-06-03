@@ -1,5 +1,5 @@
 import { AdminModule } from '@app/admin';
-import { ApplicationModule } from '@app/application';
+import { CQRSApplicationModule } from 'libs/cqrs/src';
 import { AuthModule } from '@app/auth';
 import { KnownEntityModels } from '@app/domain';
 import { ServicesModule } from '@app/services';
@@ -35,7 +35,7 @@ import { BalancesController } from './controllers/balance/balances.controller';
     AuthModule,
     ServicesModule,
     AdminModule,
-    ApplicationModule,
+    CQRSApplicationModule,
   ],
   controllers: [
     AuthController,

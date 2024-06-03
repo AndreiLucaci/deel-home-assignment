@@ -1,4 +1,4 @@
-import { GetCurrentBalanceQueryResult } from '@app/application/balance/queries/get-current.query';
+import { GetCurrentBalanceQueryResult } from 'libs/cqrs/src/balance/queries/get-current.query';
 import { IsNumber, IsPositive, NotEquals } from 'class-validator';
 
 export class DepositBalanceRequestDto {

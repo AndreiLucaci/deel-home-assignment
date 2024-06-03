@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from './auth.service';
 import { TokenService } from './token.service';
-import { UserService } from '@app/storage/user.service';
 import { CryptoService } from '@app/utils/crypto/crypto.service';
-import { ProfileService } from '@app/storage/profile.service';
+import { UserRepository } from '@app/storage/repositories/user.repository';
+import { ProfileRepository } from '@app/storage/repositories/profile.repository';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -16,7 +16,7 @@ describe('AuthService', () => {
           useValue: jest.fn(),
         },
         {
-          provide: UserService,
+          provide: UserRepository,
           useValue: jest.fn(),
         },
         {
@@ -24,7 +24,7 @@ describe('AuthService', () => {
           useValue: jest.fn(),
         },
         {
-          provide: ProfileService,
+          provide: ProfileRepository,
           useValue: jest.fn(),
         },
         AuthService,

@@ -34,6 +34,7 @@
     "class-validator": "^0.14.1",
     "csurf": "^1.11.0",
     "helmet": "^7.1.0",
+    "jest-mock-extended": "^3.0.7",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",
     "sequelize": "^6.37.3",
@@ -97,7 +98,7 @@
       "^@app/domain(|/.*)$": "<rootDir>/libs/domain/src/$1",
       "^@app/exceptions(|/.*)$": "<rootDir>/libs/exceptions/src/$1",
       "^@app/admin(|/.*)$": "<rootDir>/libs/admin/src/$1",
-      "^@app/application(|/.*)$": "<rootDir>/libs/application/src/$1"
+      "^@app/cqrs(|/.*)$": "<rootDir>/libs/cqrs/src/$1"
     }
   }
 }

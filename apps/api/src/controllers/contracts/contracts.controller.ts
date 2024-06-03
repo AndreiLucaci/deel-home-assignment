@@ -1,10 +1,10 @@
-import { GetContractByIdQuery } from '@app/application/contracts/queries/get-by-id.query';
 import { Controller, Get, Param, Request, UseGuards } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '../../guards/auth.guard';
 import { getUserProfileId } from '../../utils/request.utils';
-import { ListNonTerminatedContractsQuery } from '@app/application/contracts/queries/list-non-terminated.query';
+import { GetContractByIdQuery } from '@app/cqrs/contracts/queries/get-by-id.query';
+import { ListNonTerminatedContractsQuery } from '@app/cqrs/contracts/queries/list-non-terminated.query';
 
 @ApiTags('Contracts Controller')
 @Controller('contracts')

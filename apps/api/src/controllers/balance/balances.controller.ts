@@ -7,11 +7,11 @@ import {
   CurrentBalanceResponseDto,
   DepositBalanceRequestDto,
 } from './balance.requests.dto';
-import { DepositBalanceCommand } from '@app/application/balance/commands/deposit.command';
+import { DepositBalanceCommand } from 'libs/cqrs/src/balance/commands/deposit.command';
 import {
   GetCurrentBalanceQuery,
   GetCurrentBalanceQueryResult,
-} from '@app/application/balance/queries/get-current.query';
+} from 'libs/cqrs/src/balance/queries/get-current.query';
 
 @Controller('balances')
 @ApiTags('Balances Controller')

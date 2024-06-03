@@ -1,8 +1,5 @@
 import { AdminService } from '@app/admin';
-import {
-  BestProfessionQuery,
-  BestProfessionQueryResult,
-} from '@app/application/admin/best-profession.query';
+
 import { AuthService } from '@app/auth';
 import { Roles } from '@app/domain';
 import { ProfileType } from '@app/domain/entities/profile.model';
@@ -37,7 +34,11 @@ import {
   BestClientQueryResultItem,
   BestClientsQuery,
   BestClientsQueryResult,
-} from '@app/application/admin/best-clients.query';
+} from '@app/cqrs/admin/best-clients.query';
+import {
+  BestProfessionQueryResult,
+  BestProfessionQuery,
+} from '@app/cqrs/admin/best-profession.query';
 
 @Controller('admin')
 @ApiTags('Admin Controller')

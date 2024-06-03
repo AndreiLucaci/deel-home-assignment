@@ -1,4 +1,3 @@
-import { ListUnpaidJobsQuery } from '@app/application/jobs/queries/list-unpaid-jobs.query';
 import {
   Controller,
   Get,
@@ -12,15 +11,16 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '../../guards/auth.guard';
 import { getUserProfileId } from '../../utils/request.utils';
 import { JobResponseDto } from './jobs.responses.dto';
-import { PayJobCommand } from '@app/application/jobs/commands/pay.command';
-import { GetJobByIdQuery } from '@app/application/jobs/queries/get-by-id.query';
 import { JobNotFoundException } from '@app/exceptions/job.exception';
+import { InsufficientFundsException } from '@app/exceptions/balance.exception';
+import { Job } from '@app/domain/entities/job.model';
+import { ListUnpaidJobsQuery } from '@app/cqrs/jobs/queries/list-unpaid-jobs.query';
 import {
   GetCurrentBalanceQuery,
   GetCurrentBalanceQueryResult,
-} from '@app/application/balance/queries/get-current.query';
-import { InsufficientFundsException } from '@app/exceptions/balance.exception';
-import { Job } from '@app/domain/entities/job.model';
+} from '@app/cqrs/balance/queries/get-current.query';
+import { GetJobByIdQuery } from '@app/cqrs/jobs/queries/get-by-id.query';
+import { PayJobCommand } from '@app/cqrs/jobs/commands/pay.command';
 
 @Controller('jobs')
 @ApiTags('Jobs Controller')
